@@ -39,6 +39,8 @@ jobs:
           fileName: "*tgz"
           out-file-path: arelle
           extract: true
+      - run: |
+          ls -R arelle
       - uses: actions/download-artifact@v4
         with:
           name: $TAX_NAME.zip
