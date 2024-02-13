@@ -1,0 +1,22 @@
+name: Taxonomy build & validation
+on:
+  workflow_dispatch:
+  push:
+
+env:
+  TAX_NAME: rj_taxonomy_2024
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build taxonomy-package
+    steps:
+      - uses: actions/checkout@v3
+      - run: './script/worker.sh '
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: $TAX_NAME.zip
+          path: build/$TAX_NAME.zip
+
+
