@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build taxonomy-package
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: mkdir -p build
 
       - uses: montudor/action-zip@v1
@@ -25,3 +25,19 @@ jobs:
           path: build/$TAX_NAME.zip
 
 
+  test:
+    runs-on: ubuntu-latest
+    name: Test taxonomy-package
+    needs: build
+    steps:
+      - uses: robinraju/release-downloader@v1.9
+        with:
+          repository: arelle/arelle
+          latest: true
+          tarBall: true
+          out-file-path: arelle
+          extract: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: TAX_NAME.zip
+          path: taxonomies
