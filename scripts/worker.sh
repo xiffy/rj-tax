@@ -9,8 +9,8 @@ mkdir -p build
 for dir in ./*
 do
   dir=${dir%*/}
-  if [ "${dir}" == "build" ]; then continue; fi
-  if [ "${dir}" == "scripts" ]; then continue; fi
-
-  zip "${dir}"/* build/"${dir}".zip
+  if [ "${dir}" == "./build" ]; then continue; fi
+  if [ "${dir}" == "./scripts" ]; then continue; fi
+  echo "${dir}"
+  zip  -r build/"${dir}".zip "${dir}"/*
 done
