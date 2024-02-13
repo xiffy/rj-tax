@@ -12,10 +12,11 @@ jobs:
     name: Build taxonomy-package
     steps:
       - uses: actions/checkout@v3
+      - run: mkdir -p build
 
       - uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r build/rj_taxonomy_2024.zip rj_taxonomy_2024
+          args: zip -qq -r build/$TAX_NAME.zip $TAX_NAME
       # - run: './script/worker.sh '
 
       - uses: actions/upload-artifact@master
