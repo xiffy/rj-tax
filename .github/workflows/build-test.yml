@@ -34,10 +34,12 @@ jobs:
         with:
           repository: arelle/arelle
           latest: true
-          tarBall: true
+          tarBall: false
+          zipBall: false
+          fileName: "*tgz"
           out-file-path: arelle
           extract: true
       - uses: actions/download-artifact@v4
         with:
-          name: TAX_NAME.zip
+          name: $TAX_NAME.zip
           path: taxonomies
