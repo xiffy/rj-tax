@@ -16,7 +16,7 @@ jobs:
 
       - uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r build/${{ env.TAX_NAME }}.zip . -i ${{ env.TAX_NAME }}
+          args: zip -r build/${{ env.TAX_NAME }}  ./${{ env.TAX_NAME }}
       # - run: './script/worker.sh '
 
       - uses: actions/upload-artifact@master
@@ -34,7 +34,7 @@ jobs:
           pip install arelle-release
       - uses: actions/download-artifact@v4
         with:
-          name: $TAX_NAME.zip
+          name: ${{ env.TAX_NAME }}.zip
           path: taxonomies
       - run: |
           arelleCmdLine --help
