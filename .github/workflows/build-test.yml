@@ -12,7 +12,11 @@ jobs:
     name: Build taxonomy-package
     steps:
       - uses: actions/checkout@v3
-      - run: './script/worker.sh '
+
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r build/$TAX_NAME.zip $TAX_NAME
+      # - run: './script/worker.sh '
 
       - uses: actions/upload-artifact@master
         with:
