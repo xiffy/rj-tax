@@ -40,6 +40,8 @@ jobs:
           out-file-path: arelle
           extract: true
       - run: |
+          gunzip arelle/*tgz
+      - run: |
           ls -R arelle
       - uses: actions/download-artifact@v4
         with:
