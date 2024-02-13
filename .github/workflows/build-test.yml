@@ -21,8 +21,8 @@ jobs:
 
       - uses: actions/upload-artifact@master
         with:
-          name: $TAX_NAME.zip
-          path: build/$TAX_NAME.zip
+          name: ${{ env.TAX_NAME }}.zip
+          path: build/${{ env.TAX_NAME }}.zip
 
 
   test:
