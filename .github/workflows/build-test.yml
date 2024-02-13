@@ -30,20 +30,11 @@ jobs:
     name: Test taxonomy-package
     needs: build
     steps:
-      - uses: robinraju/release-downloader@v1.9
-        with:
-          repository: arelle/arelle
-          latest: true
-          tarBall: false
-          zipBall: false
-          fileName: "*tgz"
-          out-file-path: arelle
-          extract: true
       - run: |
-          tar -xzvf arelle/*tgz
-      - run: |
-          ls -R arelle
+          pip install arelle-release
       - uses: actions/download-artifact@v4
         with:
           name: $TAX_NAME.zip
           path: taxonomies
+      - run: |
+          arelle/
