@@ -7,37 +7,26 @@ env:
   TAX_NAME: rj_taxonomy_2024
 
 jobs:
-  build:
+  build_and_test:
     runs-on: ubuntu-latest
-    name: Build taxonomy-package
+    name: Build en Test taxonomy-package
     steps:
       - uses: actions/checkout@v4
-      - run: mkdir -p build
 
+      - run: mkdir -p build
       - uses: montudor/action-zip@v1
         with:
           args: zip -r build/${{ env.TAX_NAME }}  ./${{ env.TAX_NAME }}
-      # - run: './script/worker.sh '
 
       - uses: actions/upload-artifact@master
         with:
           name: ${{ env.TAX_NAME }}.zip
           path: build/${{ env.TAX_NAME }}.zip
 
-
-  test:
-    runs-on: ubuntu-latest
-    name: Test taxonomy-package
-    needs: build
-    steps:
-      - uses: actions/checkout@v4
       - name: Install Arelle
         run: |
           pip install arelle-release
-      - uses: actions/download-artifact@v4
-        with:
-          name: ${{ env.TAX_NAME }}.zip
-          path: taxonomies
+
       # We willen de entrypoints kennen, dus manifest lezen
       - id: eplist
         run: |
@@ -47,6 +36,6 @@ jobs:
           echo ${{ env.ep_list }}
       - id: taxtest
         run: |
-          arelleCmdLine --packages [taxonomies/${{ env.TAX_NAME }}.zip] --file "${{ env.ep_list }} --validate "
+          arelleCmdLine --packages [build/${{ env.TAX_NAME }}.zip] --file "${{ env.ep_list }} --validate "
       #- run: |
       #    arelleCmdLine  --file "$env:ENTRYPOINT_LIST" --validate --logLevel=warning --logFile=arelle-taxo.log
