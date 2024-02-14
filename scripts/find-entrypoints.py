@@ -10,4 +10,4 @@ doc = ET.parse("%s/META-INF/taxonomyPackage.xml" % tax_name)
 ep_list = []
 for ep in doc.findall("tp:entryPoints/tp:entryPoint/tp:entryPointDocument", ns):
     ep_list.append(ep.get('href'))
-print(",".join(ep_list))
+print("|".join(ep_list))
