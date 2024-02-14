@@ -42,7 +42,7 @@ jobs:
       - id: eplist
         run: |
           EP_LIST=`python scripts/find-entrypoints.py ${{ env.TAX_NAME }}` 
-          echo "ep_list=${EP_LIST}" >> "${{ env.GITHUB_OUTPUT }}"
+          echo "ep_list=${EP_LIST}" >> "$GITHUB_OUTPUT"
       - run: |
           echo ${{ steps.vars.outputs.ep_list }}
       - id: taxtest
