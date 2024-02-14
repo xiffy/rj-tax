@@ -43,11 +43,10 @@ jobs:
         run: |
           EP_LIST=`python scripts/find-entrypoints.py ${{ env.TAX_NAME }}` 
           echo ep_list=$EP_LIST >> $GITHUB_ENV
-          echo $EP_LIST
       - run: |
           echo ${{ env.ep_list }}
       - id: taxtest
         run: |
-          arelleCmdLine --help
+          arelleCmdLine --packages [${{ env.TAX_NAME }}] --file "${{ env.ep_list }} --validate --logFile=arelle-taxo.log"
       #- run: |
-      #    arelleCmdLine --packages ${{ env.TAX_NAME }} --file "$env:ENTRYPOINT_LIST" --validate --logLevel=warning --logFile=arelle-taxo.log
+      #    arelleCmdLine  --file "$env:ENTRYPOINT_LIST" --validate --logLevel=warning --logFile=arelle-taxo.log
