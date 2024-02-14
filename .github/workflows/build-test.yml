@@ -30,22 +30,22 @@ jobs:
     name: Test taxonomy-package
     needs: build
     steps:
-      - run: |
+      - uses: actions/checkout@v4
+      - name: Install Arelle
+        run: |
           pip install arelle-release
       - uses: actions/download-artifact@v4
         with:
           name: ${{ env.TAX_NAME }}.zip
           path: taxonomies
+      # We willen de entrypoints kennen, dus manifest lezen
+      - id: eplist
+        run: |
+          EP_LIST=`python scripts/find-entrypoints.py ${{ env.TAX_NAME }}`; echo "ep_list=$EP_LIST" >> "$GITHUB_OUTPUT"
       - run: |
-          ls -latr ./taxonomies
-        # We willen de entrypoints kennen, dus manifest lezen
-      - uses: montudor/action-zip@v1
-        with:
-          args: unzip taxonomies/${{ env.TAX_NAME }}.zip -d tmp
-      - run: |
-          python scripts/find-entrypoints.py ${{ env.TAX_NAME }} 
-
-      - run: |
+          echo ${{ steps.vars.outputs.ep_list }}
+      - id: taxtest
+        run: |
           arelleCmdLine --help
       #- run: |
       #    arelleCmdLine --packages ${{ env.TAX_NAME }} --file "$env:ENTRYPOINT_LIST" --validate --logLevel=warning --logFile=arelle-taxo.log
