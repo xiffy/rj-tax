@@ -35,14 +35,17 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: ${{ env.TAX_NAME }}.zip
-          path: artifacts
-      - run: |
-          ls -latr ./artifacts
-      - uses: montudor/action-zip@v1
-        with:
-          args: unzip artifacts/${{ env.TAX_NAME }} -d taxonomies
+          path: taxonomies
       - run: |
           ls -latr ./taxonomies
+        # We willen de entrypoints kennen, dus manifest lezen
+      - uses: montudor/action-zip@v1
+        with:
+          args: unzip taxonomies/${{ env.TAX_NAME }}.zip -d tmp
+      - run: |
+          python scripts/find-entrypoints.py ${{ env.TAX_NAME }} 
 
       - run: |
           arelleCmdLine --help
+      #- run: |
+      #    arelleCmdLine --packages ${{ env.TAX_NAME }} --file "$env:ENTRYPOINT_LIST" --validate --logLevel=warning --logFile=arelle-taxo.log
