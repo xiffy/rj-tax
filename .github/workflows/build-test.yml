@@ -36,6 +36,6 @@ jobs:
           echo ${{ env.ep_list }}
       - id: taxtest
         run: |
-          arelleCmdLine --packages build/${{ env.TAX_NAME }}.zip --file "${{ env.ep_list }} --validate "
+          arelleCmdLine --packages build/${{ env.TAX_NAME }}.zip --file "${{ env.ep_list }}" --validate
       #- run: |
       #    arelleCmdLine  --file "$env:ENTRYPOINT_LIST" --validate --logLevel=warning --logFile=arelle-taxo.log
