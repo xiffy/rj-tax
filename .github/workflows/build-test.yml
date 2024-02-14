@@ -45,7 +45,7 @@ jobs:
           echo ep_list=$EP_LIST >> $GITHUB_ENV
           echo $EP_LIST
       - run: |
-          echo ${{ steps.vars.outputs.ep_list }}
+          echo ${{ env.ep_list }}
       - id: taxtest
         run: |
           arelleCmdLine --help
