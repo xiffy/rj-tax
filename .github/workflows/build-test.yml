@@ -35,8 +35,8 @@ jobs:
       - run: |
           echo ${{ env.ep_list }}
       - id: taxtest
-        run: |  # dit kan niet in een single taxo met dependencies: --file "${{ env.ep_list }}"
-          arelleCmdLine --packages build/${{ env.TAX_NAME }}.zip  --validate
+        run: |  
+          arelleCmdLine --packages build/${{ env.TAX_NAME }}.zip  --validate --file "${{ env.ep_list }}"
 
       #- run: |
       #    arelleCmdLine  --file "$env:ENTRYPOINT_LIST" --validate --logLevel=warning --logFile=arelle-taxo.log
